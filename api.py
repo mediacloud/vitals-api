@@ -41,6 +41,8 @@ MCWEB_TOKEN = os.environ["MCWEB_TOKEN"]
 
 DEFAULT_TTL = 60  # cache data one minute
 
+HEADERS = {"User-Agent": "vitals-api"}
+
 ################ FastAPI app & initialization
 
 app = fastapi.FastAPI()
@@ -108,6 +110,10 @@ def v2_wrap(data: JSON | list[Any]) -> V2_Response:
     standard wrapper for v2 of API
     """
     return {"data": data, "created_ts": int(time.time())}
+
+
+def aiohttp_session() -> aiohttp.ClientSession:
+    return aiohttp.ClientSession(headers=HEADERS)
 
 
 ################ stats endpoint
@@ -204,7 +210,7 @@ async def v2_stats_get() -> V2_Response:
 
     v2: uses v2_wrap()
     """
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp_session() as session:
         async with session.get(GRAPHITE_URL) as response:
             j = await response.json()
             return v2_wrap(v1_zip_columns(j))
@@ -223,7 +229,7 @@ async def v2_stories_get() -> V2_Response:
     returns random sample from last 24 hours, to try to show
     representative stories (last 20 may all be from same source)
     """
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp_session() as session:
         session.headers["Authorization"] = f"Token {MCWEB_TOKEN}"
         now = time.time()
         start = time.strftime("%Y-%m-%d", time.gmtime(now - 24 * 60 * 60))
