@@ -17,8 +17,8 @@ classifiers = [
 dependencies = [
     # If you add/update here, run "make requirements" to build requirements.txt
     # (dokku/heroku buildpac doesn't consume this file directly?)
-    "aiohttp ~= 3.11.0",
-    "fastapi ~= 0.115.0",
+    "aiohttp ~= 3.13.0",
+    "fastapi ~= 0.136.0",
     "fastapi-cache2 ~= 0.2.0",
     "uvicorn ~= 0.34.0"
 # MAYBE:
