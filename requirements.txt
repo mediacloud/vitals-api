@@ -40,6 +40,10 @@ idna==3.14
     # via
     #   anyio
     #   yarl
+jinja2==3.1.6
+    # via dashboard-api (pyproject.toml)
+markupsafe==3.0.3
+    # via jinja2
 multidict==6.7.1
     # via
     #   aiohttp
