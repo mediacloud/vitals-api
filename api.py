@@ -229,7 +229,7 @@ async def v2_stories_get() -> V2_Response:
         start = time.strftime("%Y-%m-%d", time.gmtime(now - 24 * 60 * 60))
         end = time.strftime("%Y-%m-%d", time.gmtime(now))
         # doesn't (currently) take count parameter!
-        url = f"{SAMPLE_URL}?start={start}&end={end}"
+        url = f"{SAMPLE_URL}?start={start}&end={end}&q=*&ss="
         async with session.get(url) as response:
             j = await response.json()
             # perhaps trim any unwanted columns?
