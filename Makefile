@@ -23,8 +23,8 @@ lint:	$(VENVDONE)
 	$(VENVBIN)/pre-commit run --all-files
 
 # create venv with project dependencies
-# --editable skips installing project sources in venv
 # pre-commit is in dev optional-requirements
+# with uv, mypy is run in dev venv
 install $(VENVDONE): Makefile pyproject.toml
 	uv sync --python `cat .python-version` --extra dev --extra deploy --extra mypy
 	$(VENVBIN)/pre-commit install
