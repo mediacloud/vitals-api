@@ -10,28 +10,28 @@
 
 ## To lint/check code before commit, run `make lint`
 
-## To add new requirements:
+## To adjust requirements:
 
 * Add to `pyproject.toml`
 * Run `make lock`
 * commit pyproject.toml and uv.lock to git
 
-## To setup dokku staging-vitals-api and git remote dokku_staging
+## To setup dokku staging-vitals-api:
 
 * `./setup.sh staging`
 
-## To setup dokku production vitals-api and git remote dokku_prod
+## To setup dokku production vitals-api:
 
 * `./setup.sh prod`
 
 ## To test code in staging
 
-(NOTE: there are no prod/staging branches)
+Merge main to staging, push to github.com/mediacloud/vitals-api and run:
 
-* `git push dokku_staging`
+* `make deploy`
 
 ## To deploy code for production
 
-(NOTE: there are no prod/staging branches)
-
-* `git push dokku_prod`
+1. Update pyproject.toml version, run `make lock` commit to the main branch, and push to github
+2. Merge into staging branch, push and run `make deploy`
+3. Merge into prod branch, push and run `make deploy`
