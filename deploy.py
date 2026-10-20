@@ -2,6 +2,8 @@
 vitals-api deploy script using mc-deploy (in system-dev-ops repo,
 installed in development venv thru "dev" optional-dependencies in
 pyproject.toml)
+
+WORK IN PROGRESS!!
 """
 
 import sys
@@ -15,7 +17,7 @@ class VitalsApiDeploy(PyProjectMixin, DokkuDeploy):
     PROJECT_REPO = "vitals-api"
 
     # XXX needs "dokku graphite:link ObscureStatsServiceName"
-    # override settings_get_new to configure MCWEB_TOKEN!!!
+    # XXX read file(s) override settings_get_new to configure MCWEB_TOKEN!!!
 
 
 d = VitalsApiDeploy()
