@@ -1,45 +1,44 @@
 # from story-indexer
 [project]
-name = "dashboard-api"
-version = "2.0.0"
-description='Media Cloud Dashboard API Server'
+name = "vitals-api"
+version = "2.1.0"
+description='Media Cloud Vitals API Server'
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 authors = [
     {name = "Phil Budne", email = "phil@regressive.org"},
 ]
 classifiers = [
     "Operating System :: POSIX",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.13",
 ]
 
 dependencies = [
-    # If you add/update here, run "make requirements" to build requirements.txt
-    # (dokku/heroku buildpac doesn't consume this file directly?)
-    "aiohttp ~= 3.13.0",
-    "fastapi ~= 0.136.0",
+    "aiohttp ~= 3.14.0",
+    "fastapi ~= 0.150.0",
     "fastapi-cache2 ~= 0.2.0",
     "jinja2 ~= 3.1.0",		# needed for fastapi-cache2 w/ starlette 1.0
-    "uvicorn ~= 0.34.0"
+    "uvicorn ~= 0.54.0"
 # MAYBE:
 #   "sentry-sdk[fastapi] ~= 1.10.0",
-#   "mc-manage @ git+https://github.com/mediacloud/mc-manage@v1.1.4",
 ]
 
 [project.optional-dependencies]
+deploy = [
+   "mc-deploy @ git+https://github.com/mediacloud/system-dev-ops@mc-deploy-0.19.latest#subdirectory=deploy/mc-deploy",
+]
+
 # for pre-commit hook (and "make lint")
 # additional packages for mypy belong in pre-commit section below
 dev = [
-    "pip-tools ~= 7.5.0",
-    "pre-commit ~= 4.2.0"
+    "pre-commit ~= 4.7.0"
 ]
 
-# dependencies for mypy (not in user venv):
-# .pre-commit-config.yaml uses .pre-commit-run.sh
-# to (re)install these in the pre-commit PRIVATE venv
-# if this file has changed.
-pre-commit = [
+# dependencies for mypy
+# my runs in dev .venv with uv
+mypy = [
+    "mypy"
 ]
 
 [tool.isort]
@@ -67,21 +66,6 @@ warn_unused_configs = true
 
 # look for local stubs to PyPI packages in top level stubs directory
 #mypy_path = "stubs"
-
-[tool.pip-tools]
-allow-unsafe = true
-quiet = true
-resolver = "backtracking"
-upgrade = true
-# To enable Hash-Checking-Mode uncomment the following line
-# generate-hashes = true
-
-# https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#custom-discovery
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["indexer*"]
-exclude = ["indexer.tests*"]
-namespaces = false
 
 [project.urls]
 "Homepage" = "https://mediacloud.org"

@@ -16,11 +16,11 @@
 * Run `make requirements`
 * commit pyproject.toml and requirements.txt to git
 
-## To setup dokku staging-vitals-api
+## To setup dokku staging-vitals-api and git remote dokku_staging
 
 * `./setup.sh staging`
 
-## To setup dokku production vitals-api
+## To setup dokku production vitals-api and git remote dokku_prod
 
 * `./setup.sh prod`
 

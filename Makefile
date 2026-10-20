@@ -4,7 +4,7 @@
 # to create development environment: `make`
 # to run pre-commit linting/formatting: `make lint`
 
-VENVDIR=venv
+VENVDIR=.venv
 VENVBIN=$(VENVDIR)/bin
 VENVDONE=$(VENVDIR)/.done
 
@@ -12,7 +12,9 @@ help:
 	@echo Usage:
 	@echo "make install -- installs pre-commit hooks, dev environment"
 	@echo "make lint -- runs pre-commit checks"
-	@echo "make requirements -- make requirements.txt"
+	@echo "make deploy -- run deployment script"
+	@echo "make list-outdated -- list outdated dependencies"
+	@echo "make lock -- make uv.lock"
 	@echo "make update -- update .pre-commit-config.yaml"
 	@echo "make clean -- remove development environment"
 
@@ -23,22 +25,28 @@ lint:	$(VENVDONE)
 # create venv with project dependencies
 # --editable skips installing project sources in venv
 # pre-commit is in dev optional-requirements
-install $(VENVDONE): $(VENVDIR) Makefile pyproject.toml
-	$(VENVBIN)/python3 -m pip install --editable '.[dev]'
+install $(VENVDONE): Makefile pyproject.toml
+	uv sync --python `cat .python-version` --extra dev --extra deploy --extra mypy
 	$(VENVBIN)/pre-commit install
 	touch $(VENVDONE)
 
-$(VENVDIR):
-	python3 -m venv $(VENVDIR)
+## deploy code via Dokku
+deploy:	lint
+	$(VENVBIN)/python deploy.py deploy
 
 ## update .pre-commit-config.yaml
 update:	$(VENVDONE)
 	$(VENVBIN)/pre-commit autoupdate
 
-## build requirements.txt (required by Heroku buildpack?)
-requirements: $(VENVDONE)
-	$(VENVBIN)/pip-compile -o requirements.txt.tmp --strip-extras pyproject.toml
-	mv requirements.txt.tmp requirements.txt
+## make uv.lock
+requirements uv.lock lock: pyproject.toml
+	uv lock
+
+# list outdated requirements
+# https://github.com/astral-sh/uv/issues/6794
+# discusses automagic update
+list-outdated:
+	uv pip list --outdated
 
 ## clean up development environment
 clean:
