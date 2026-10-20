@@ -15,6 +15,7 @@ from mc_deploy.pyproject import PyProjectMixin
 class VitalsApiDeploy(PyProjectMixin, DokkuDeploy):
     INST_BASE = "vitals-api"
     PROJECT_REPO = "vitals-api"
+    DOKKU_SERVICES = {}
 
     # XXX needs "dokku graphite:link ObscureStatsServiceName"
     # XXX read file(s) override settings_get_new to configure MCWEB_TOKEN!!!
