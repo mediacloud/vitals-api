@@ -15,6 +15,8 @@ from mc_deploy.pyproject import PyProjectMixin
 class VitalsApiDeploy(PyProjectMixin, DokkuDeploy):
     INST_BASE = "vitals-api"
     PROJECT_REPO = "vitals-api"
+
+    DOKKU_SCALE = {"web": 1}
     DOKKU_SERVICES = {}
 
     # XXX needs "dokku graphite:link ObscureStatsServiceName"
