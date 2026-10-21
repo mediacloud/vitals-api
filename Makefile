@@ -39,8 +39,11 @@ update:	$(VENVDONE)
 	$(VENVBIN)/pre-commit autoupdate
 
 ## make uv.lock
-requirements uv.lock lock: pyproject.toml
-	uv lock
+requirements lock: uv.lock
+
+# force check if mc-deploy .latest tag has moved
+uv.lock: pyproject.toml
+	uv lock --upgrade-package mc-deploy
 
 # list outdated requirements
 # https://github.com/astral-sh/uv/issues/6794

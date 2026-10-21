@@ -753,8 +753,8 @@ wheels = [
 
 [[package]]
 name = "mc-deploy"
-version = "0.19.0"
-source = { git = "https://github.com/mediacloud/system-dev-ops?subdirectory=deploy%2Fmc-deploy&rev=mc-deploy-0.19.latest#31f630c65b146185aa2854fc78889975f4fc26d0" }
+version = "0.19.1"
+source = { git = "https://github.com/mediacloud/system-dev-ops?subdirectory=deploy%2Fmc-deploy&rev=mc-deploy-0.19.latest#6d672e9c7f7f8f19a9d0250d8da6b9a239c0a085" }
 dependencies = [
     { name = "pyairtable" },
     { name = "python-dotenv" },
