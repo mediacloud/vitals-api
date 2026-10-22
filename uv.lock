@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.13"
 resolution-markers = [
     "python_full_version >= '3.15'",
@@ -753,8 +753,8 @@ wheels = [
 
 [[package]]
 name = "mc-deploy"
-version = "0.19.1"
-source = { git = "https://github.com/mediacloud/system-dev-ops?subdirectory=deploy%2Fmc-deploy&rev=mc-deploy-0.19.latest#6d672e9c7f7f8f19a9d0250d8da6b9a239c0a085" }
+version = "0.19.2"
+source = { git = "https://github.com/mediacloud/system-dev-ops?subdirectory=deploy%2Fmc-deploy&rev=mc-deploy-0.19.latest#c18ac70aa91068356e76de9496e197518d844ddf" }
 dependencies = [
     { name = "pyairtable" },
     { name = "python-dotenv" },

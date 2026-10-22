@@ -26,6 +26,9 @@ dependencies = [
 
 [project.optional-dependencies]
 deploy = [
+   # .pre-commit-config.yaml runs "uv lock --upgrade-package mc-deploy"
+   # to force symbolic .latest tag to be re-resolved to a git hash
+   # on each commit.
    "mc-deploy @ git+https://github.com/mediacloud/system-dev-ops@mc-deploy-0.19.latest#subdirectory=deploy/mc-deploy",
 ]
 
